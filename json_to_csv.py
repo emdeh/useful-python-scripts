@@ -36,8 +36,11 @@ try:
                 properties = link.keys()
                 header.update(properties)
 
+        # Add a "Pages" column to the header
+        header.add("Pages")
+
         # Define the desired column order
-        column_order = ['url', 'status', 'error'] + sorted(header - {'url', 'status', 'error'})
+        column_order = ['Pages', 'url', 'status', 'error'] + sorted(header - {'url', 'status', 'error'})
 
         # Create a CSV writer with the desired column order
         csv_writer = csv.DictWriter(csv_file, fieldnames=column_order)
@@ -47,10 +50,10 @@ try:
 
         # Iterate through each JSON object and its links
         for item in data:
+            top_level_url = item.get('url', '')  # Get the top-level URL
             for link in item.get('links', []):
-                # Check if 'status' is blank and handle accordingly
-                if link.get('status') == '':
-                    link['status'] = 'no status - check error column for more info'
+                # Add the "Pages" column with the top-level URL value
+                link['Pages'] = top_level_url
 
                 # Write a row for each link with all available properties
                 csv_writer.writerow(link)
