@@ -7,7 +7,6 @@ example:
   Wait for it to finish
   Then, in the same dir, run: json_to_csv.py results.json
 '''
-
 import sys
 import json
 import csv
@@ -49,6 +48,10 @@ try:
         # Iterate through each JSON object and its links
         for item in data:
             for link in item.get('links', []):
+                # Check if 'status' is blank and handle accordingly
+                if link.get('status') == '':
+                    link['status'] = 'no status - check error column for more info'
+
                 # Write a row for each link with all available properties
                 csv_writer.writerow(link)
 
