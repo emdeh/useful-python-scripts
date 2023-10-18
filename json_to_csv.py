@@ -1,12 +1,3 @@
-'''
-Created this script because I was having trouble with the output of https://github.com/raviqqe/muffet (the Windows version specifically).
-This script takes a JSON output file from muffet and converts it into CSV.
-example:
-  Open a cmd line
-  Run muffet as you need like 'muffet.exe https://www.mysite.come /follow-robots-txt /max-connections:200 /format:json /v > results.json
-  Wait for it to finish
-  Then, in the same dir, run: json_to_csv.py results.json
-'''
 import sys
 import json
 import csv
@@ -36,11 +27,8 @@ try:
                 properties = link.keys()
                 header.update(properties)
 
-        # Add a "Pages" column to the header
-        header.add("Pages")
-
         # Define the desired column order
-        column_order = ['Pages', 'url', 'status', 'error'] + sorted(header - {'url', 'status', 'error'})
+        column_order = ['url', 'status', 'error'] + sorted(header - {'url', 'status', 'error'})
 
         # Create a CSV writer with the desired column order
         csv_writer = csv.DictWriter(csv_file, fieldnames=column_order)
@@ -50,11 +38,11 @@ try:
 
         # Iterate through each JSON object and its links
         for item in data:
-            top_level_url = item.get('url', '')  # Get the top-level URL
             for link in item.get('links', []):
-                # Add the "Pages" column with the top-level URL value
-                link['Pages'] = top_level_url
-
+                # Check if 'status' is blank or doesn't exist, and handle accordingly
+                if not link.get('status'):
+                    link['status'] = 'no status - check error column for more info'
+                
                 # Write a row for each link with all available properties
                 csv_writer.writerow(link)
 
