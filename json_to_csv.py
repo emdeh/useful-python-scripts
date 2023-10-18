@@ -3,7 +3,7 @@ Created this script because I was having trouble with the output of https://gith
 This script takes a JSON output file from muffet and converts it into two CSV files.
 Example:
   Open a cmd line
-  Run muffet as you need like 'muffet.exe https://www.mysite.come /follow-robots-txt /f /v /format:json > results.json
+  Run muffet as you need like 'muffet.exe https://www.mysite.com /follow-robots-txt /f /v /format:json > results.json
   Wait for it to finish
   Then, in the same dir, run: json_to_csv.py results.json
   The result will be two .csv files. One of just unique links found on the site, and the other links by page.
