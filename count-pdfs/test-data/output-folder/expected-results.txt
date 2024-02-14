@@ -1,0 +1,6 @@
+folder 1 -  1 doc 3 pages
+folder 2 -  1 doc 2 pages
+folder 3 -  3 docs 54 pages
+folder 4 -  2 docs 186 pages
+
+total -     7 docs 245 pages
