@@ -1,0 +1,12 @@
+# Ignore venv folders
+**/venv/
+
+# Ignore .env files
+**/.env
+
+# Ignore xlsx and csv files
+*.xlsx
+*.csv
+
+# Ignore files starting with "output"
+**/output*
